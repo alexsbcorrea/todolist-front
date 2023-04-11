@@ -25,6 +25,7 @@ export const Container = styled.main`
     padding: 20px 30px;
     background-color: ${(props) => props.theme.t_main};
     border-radius: 15px;
+    z-index: -1;
 
     & div {
       display: flex;
@@ -113,6 +114,7 @@ export const FotoPerfil = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme.t_main};
+  z-index: -1;
 
   img {
     width: 100%;
