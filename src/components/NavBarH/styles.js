@@ -33,6 +33,7 @@ export const ContainerMenu = styled.header`
   align-items: center;
   border-bottom: 4px solid ${(props) => props.theme.bg_back_d};
   margin-bottom: 20px;
+  z-index: 999;
 `;
 
 export const Logo = styled.div`
@@ -54,6 +55,7 @@ export const ItemsMenu = styled.div`
   gap: 10px;
   margin-right: 20px;
   box-sizing: border-box;
+  z-index: 999;
 
   .mobile {
     display: none;

@@ -4,6 +4,7 @@ import { Container } from "./styles";
 import { AuthContext } from "../../context/AuthContext";
 
 import Perfil from "../../assets/perfil.jpg";
+import NavBar from "../../components/NavBarH";
 
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";

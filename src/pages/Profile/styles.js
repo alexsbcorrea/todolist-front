@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+const statusMenu = localStorage.getItem("modalMenu");
+
 export const Container = styled.main`
   margin-top: 80px;
   width: 100%;
@@ -25,7 +27,6 @@ export const Container = styled.main`
     padding: 20px 30px;
     background-color: ${(props) => props.theme.t_main};
     border-radius: 15px;
-    z-index: -1;
 
     & div {
       display: flex;
@@ -114,7 +115,7 @@ export const FotoPerfil = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme.t_main};
-  z-index: -1;
+  z-index: ${statusMenu ? "0" : "-1"};
 
   img {
     width: 100%;

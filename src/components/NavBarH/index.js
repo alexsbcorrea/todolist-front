@@ -20,6 +20,11 @@ export default function NavbarH() {
     JSON.parse(localStorage.getItem("image2"))
   );
 
+  function ModalMenu() {
+    setOpen(!open);
+    localStorage.setItem("modalMenu", open);
+  }
+
   function LogoutUser() {
     Logout();
   }
@@ -35,7 +40,7 @@ export default function NavbarH() {
   if (userTD.token) {
     return (
       <C.ContainerMenu>
-        <C.Hamburguer open={open} onClick={() => setOpen(!open)}>
+        <C.Hamburguer open={open} onClick={ModalMenu}>
           <C.Line1 open={open}></C.Line1>
           <C.Line2 open={open}></C.Line2>
           <C.Line3 open={open}></C.Line3>
