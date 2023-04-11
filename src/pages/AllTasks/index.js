@@ -29,7 +29,7 @@ export default function AllTasks() {
         setFlashMessage(
           "success",
           `Tarefa "${description}" finalizada.`,
-          3000,
+          2000,
           "toast"
         );
       })
@@ -39,7 +39,7 @@ export default function AllTasks() {
         setFlashMessage(
           "error",
           "Falha ao finalizar tarefa. Tente novamente mais tarde.",
-          3000,
+          2000,
           "toast"
         );
       });
@@ -54,7 +54,7 @@ export default function AllTasks() {
         setFlashMessage(
           "success",
           `Tarefa "${description}" reaberta.`,
-          3000,
+          2000,
           "toast"
         );
       })

@@ -5,10 +5,31 @@ import { AuthContext } from "../../context/AuthContext";
 
 import Perfil from "../../assets/perfil.jpg";
 
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+
 export default function Register() {
   const [user, setUser] = useState({});
   const [checked, setChecked] = useState("");
   const { Register } = useContext(AuthContext);
+  const [visiblePassword, setVisiblePassword] = useState("password");
+  const [visibleConfPassword, setVisibleConfPassword] = useState("password");
+
+  function TogglePasswordVisible() {
+    if (visiblePassword == "password") {
+      setVisiblePassword("text");
+    } else {
+      setVisiblePassword("password");
+    }
+  }
+
+  function ToggleConfPasswordVisible() {
+    if (visibleConfPassword == "password") {
+      setVisibleConfPassword("text");
+    } else {
+      setVisibleConfPassword("password");
+    }
+  }
 
   function handleChange(e) {
     setUser((prevstate) => {
@@ -83,20 +104,46 @@ export default function Register() {
         <div>
           <label htmlFor="">Senha:</label>
           <input
-            type="text"
+            type={visiblePassword}
             name="password"
             onChange={handleChange}
             value={user.password || ""}
           />
+          {visiblePassword == "password" ? (
+            <AiOutlineEye
+              size={25}
+              className="password"
+              onClick={TogglePasswordVisible}
+            ></AiOutlineEye>
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={TogglePasswordVisible}
+              size={25}
+              className="password"
+            ></AiOutlineEyeInvisible>
+          )}
         </div>
         <div>
           <label htmlFor="">Confirmar Senha:</label>
           <input
-            type="text"
+            type={visibleConfPassword}
             name="confirmPassword"
             onChange={handleChange}
             value={user.confirmPassword || ""}
           />
+          {visibleConfPassword == "password" ? (
+            <AiOutlineEye
+              size={25}
+              className="password"
+              onClick={ToggleConfPasswordVisible}
+            ></AiOutlineEye>
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={ToggleConfPasswordVisible}
+              size={25}
+              className="password"
+            ></AiOutlineEyeInvisible>
+          )}
         </div>
         <span>
           <input

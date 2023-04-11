@@ -32,6 +32,15 @@ export const Container = styled.main`
     & div {
       display: flex;
       flex-direction: column;
+      position: relative;
+
+      .password {
+        position: absolute;
+        bottom: 0px;
+        right: 8px;
+        cursor: pointer;
+        padding: 7px;
+      }
     }
 
     & div label {

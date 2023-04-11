@@ -5,9 +5,21 @@ import Perfil from "../../assets/perfil.jpg";
 
 import { AuthContext } from "../../context/AuthContext";
 
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+
 export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
   const { Login } = useContext(AuthContext);
+  const [visiblePassword, setVisiblePassword] = useState("password");
+
+  function TogglePasswordVisible() {
+    if (visiblePassword == "password") {
+      setVisiblePassword("text");
+    } else {
+      setVisiblePassword("password");
+    }
+  }
 
   function handleChange(e) {
     setUser((prevstate) => {
@@ -44,11 +56,24 @@ export default function Login() {
         <div>
           <label htmlFor="">Senha:</label>
           <input
-            type="password"
+            type={visiblePassword}
             name="password"
             onChange={handleChange}
             value={user.password || ""}
           />
+          {visiblePassword == "password" ? (
+            <AiOutlineEye
+              size={25}
+              className="password"
+              onClick={TogglePasswordVisible}
+            ></AiOutlineEye>
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={TogglePasswordVisible}
+              size={25}
+              className="password"
+            ></AiOutlineEyeInvisible>
+          )}
         </div>
         <span>
           Esqueceu a Senha? <a href="">&nbsp;Clique Aqui.</a>

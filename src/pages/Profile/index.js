@@ -3,6 +3,9 @@ import { Container, FotoPerfil } from "./styles";
 
 import useFlashMessage from "../../useFlashMessage/useFlashMessage";
 
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+
 import api from "../../api/api";
 import TempPerfil from "../../assets/perfil.jpg";
 
@@ -12,6 +15,24 @@ export default function Profile() {
   const [preview, setPreview] = useState();
   const [photo, setPhoto] = useState();
   const [update, setUpdate] = useState(false);
+  const [visiblePassword, setVisiblePassword] = useState("password");
+  const [visibleConfPassword, setVisibleConfPassword] = useState("password");
+
+  function TogglePasswordVisible() {
+    if (visiblePassword == "password") {
+      setVisiblePassword("text");
+    } else {
+      setVisiblePassword("password");
+    }
+  }
+
+  function ToggleConfPasswordVisible() {
+    if (visibleConfPassword == "password") {
+      setVisibleConfPassword("text");
+    } else {
+      setVisibleConfPassword("password");
+    }
+  }
 
   useEffect(() => {
     api.get("/users/profile").then((response) => {
@@ -177,22 +198,48 @@ export default function Profile() {
         <div>
           <label htmlFor="">Senha:</label>
           <input
-            type="text"
+            type={visiblePassword}
             name="password"
             id="password"
             onChange={handleChange}
             value={user.password || ""}
           />
+          {visiblePassword == "password" ? (
+            <AiOutlineEye
+              size={25}
+              className="password"
+              onClick={TogglePasswordVisible}
+            ></AiOutlineEye>
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={TogglePasswordVisible}
+              size={25}
+              className="password"
+            ></AiOutlineEyeInvisible>
+          )}
         </div>
         <div>
           <label htmlFor="">Confirmar Senha:</label>
           <input
-            type="text"
+            type={visibleConfPassword}
             name="confirmPassword"
             id="confirmPassword"
             onChange={handleChange}
             value={user.confirmPassword || ""}
           />
+          {visibleConfPassword == "password" ? (
+            <AiOutlineEye
+              size={25}
+              className="password"
+              onClick={ToggleConfPasswordVisible}
+            ></AiOutlineEye>
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={ToggleConfPasswordVisible}
+              size={25}
+              className="password"
+            ></AiOutlineEyeInvisible>
+          )}
         </div>
 
         <button type="submit" onClick={UpdateProfile}>

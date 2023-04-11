@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 import useFlashMessage from "../../useFlashMessage/useFlashMessage";
 
@@ -8,6 +9,7 @@ import api from "../../api/api";
 import Perfil from "../../assets/perfil.jpg";
 
 export default function NewTask() {
+  const navigate = useNavigate();
   const { setFlashMessage } = useFlashMessage();
   const [task, setTask] = useState({});
   const [message, setMessage] = useState();
@@ -57,6 +59,9 @@ export default function NewTask() {
       .then((data) => {
         setMessage(data.message);
         setFlashMessage("success", data.message, 3000, "popup");
+        setTimeout(() => {
+          setTask({});
+        }, 3000);
       })
       .catch((err) => {
         console.log(err.message);
