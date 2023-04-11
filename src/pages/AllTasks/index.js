@@ -26,12 +26,6 @@ export default function AllTasks() {
       .then((response) => {
         console.log(response.data);
         setUpdateTask(!updateTask);
-        setFlashMessage(
-          "success",
-          `Tarefa "${description}" finalizada.`,
-          2000,
-          "toast"
-        );
       })
 
       .catch((err) => {
@@ -51,12 +45,6 @@ export default function AllTasks() {
       .then((response) => {
         console.log(response.data);
         setUpdateTask(!updateTask);
-        setFlashMessage(
-          "success",
-          `Tarefa "${description}" reaberta.`,
-          2000,
-          "toast"
-        );
       })
       .catch((err) => {
         console.log("Falha");
@@ -75,12 +63,6 @@ export default function AllTasks() {
       .then((response) => {
         console.log(response.data);
         setUpdateTask(!updateTask);
-        setFlashMessage(
-          "success",
-          `Tarefa "${description}" excluída.`,
-          3000,
-          "toast"
-        );
       })
       .catch((err) => {
         console.log("Falha");

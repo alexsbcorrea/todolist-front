@@ -98,10 +98,7 @@ function AuthProvider({ children }) {
         if (data.message == "Usuário ou senha incorretos.") {
           setFlashMessage("error", `${data.message}`, 5000, "popup");
         } else {
-          setFlashMessage("success", `${data.message}`, 5000, "popup");
-          setTimeout(() => {
-            navigate("/");
-          }, 5000);
+          navigate("/tasks");
         }
       })
       .catch((err) => {
@@ -114,6 +111,7 @@ function AuthProvider({ children }) {
     setUserTD({});
     localStorage.removeItem("userTD");
     localStorage.removeItem("image");
+    localStorage.removeItem("image2");
     navigate("/login");
   }
 

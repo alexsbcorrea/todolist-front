@@ -10,6 +10,8 @@ import { CgProfile } from "react-icons/cg";
 
 import Search from "../Search";
 
+import PerfilDefatult from "../../assets/perfil.jpg";
+
 export default function NavbarH() {
   const { Logout, userTD } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
@@ -22,7 +24,13 @@ export default function NavbarH() {
     Logout();
   }
 
-  const Perfil = `${process.env.REACT_APP_API}/img/users/${profile}` || "";
+  let Perfil =
+    `${process.env.REACT_APP_API}/img/users/${profile}` || PerfilDefatult;
+
+  if (Perfil === undefined || Perfil === null) {
+    console.log(Perfil);
+    Perfil = PerfilDefatult;
+  }
 
   if (userTD.token) {
     return (
@@ -37,9 +45,6 @@ export default function NavbarH() {
         </C.Logo>
 
         <C.ItemsMenu open={open}>
-          <li>
-            <a href="/">Página Inicial</a>
-          </li>
           <li>
             <a href="/tasks">Todas as Tarefas</a>
           </li>
@@ -56,6 +61,9 @@ export default function NavbarH() {
             <a href="/profile" className="mobile specialButton">
               Editar Perfil
             </a>
+          </li>
+          <li>
+            <a onClick={LogoutUser}>Logout</a>
           </li>
           <C.Profile onClick={() => setModal(!modal)}>
             <div>
@@ -79,7 +87,7 @@ export default function NavbarH() {
           <C.Line3 open={open}></C.Line3>
         </C.Hamburguer>
         <C.Logo>
-          <C.LogoImg src={Logo} alt="" />
+          <C.LogoImg src={Logo} alt="Logo" />
         </C.Logo>
 
         <C.ItemsMenu open={open}>

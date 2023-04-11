@@ -71,6 +71,9 @@ export default function EditTask() {
       .then((response) => response.data)
       .then((data) => {
         setFlashMessage("success", data.message, 3000, "popup");
+        setTimeout(() => {
+          navigate("/tasks");
+        }, 3000);
       })
       .catch((err) => {
         console.log(err.message);
