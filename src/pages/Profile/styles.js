@@ -115,7 +115,7 @@ export const FotoPerfil = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme.t_main};
-  z-index: ${statusMenu ? "0" : "-1"};
+  z-index: 0;
 
   img {
     width: 100%;
