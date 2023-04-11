@@ -29,8 +29,7 @@ export default function NavbarH() {
     Logout();
   }
 
-  let Perfil =
-    `${process.env.REACT_APP_API}/img/users/${profile}` || PerfilDefatult;
+  let Perfil = PerfilDefatult;
 
   if (Perfil === undefined || Perfil === null) {
     console.log(Perfil);

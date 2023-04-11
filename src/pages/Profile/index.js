@@ -7,7 +7,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 
 import api from "../../api/api";
-import TempPerfil from "../../assets/perfil.jpg";
+import PerfilDefatult from "../../assets/perfil.jpg";
 
 export default function Profile() {
   const { setFlashMessage } = useFlashMessage();
@@ -88,8 +88,8 @@ export default function Profile() {
         console.log("Falha");
         setFlashMessage(
           "error",
-          "Selecione um arquivo .jpg ou .png e tente novamente.",
-          10000,
+          "Servidor Gratuito: Funcionalidade Indisponível",
+          5000,
           "popup"
         );
       });
@@ -141,7 +141,7 @@ export default function Profile() {
       <form action="">
         <FotoPerfil>
           <img
-            src={preview ? URL.createObjectURL(preview) : Perfil}
+            src={preview ? URL.createObjectURL(preview) : PerfilDefatult}
             alt="Foto de Perfil"
           />
         </FotoPerfil>

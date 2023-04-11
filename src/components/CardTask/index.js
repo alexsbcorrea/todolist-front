@@ -32,7 +32,8 @@ export default function Task({
             <GrLocation size={15}></GrLocation>&nbsp;{local}
           </p>
           <span onClick={() => edit(id, description)}>
-            <AiOutlineCalendar></AiOutlineCalendar>&nbsp;{date}
+            <AiOutlineCalendar></AiOutlineCalendar>&nbsp;
+            {date.slice(-2)}/{date.slice(5, 7)}/{date.slice(0, 4)}
           </span>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <span onClick={() => edit(id, description)}>
@@ -79,7 +80,8 @@ export default function Task({
             <GrLocation size={15}></GrLocation>&nbsp;{local}
           </p>
           <span onClick={() => edit(id, description)}>
-            <AiOutlineCalendar></AiOutlineCalendar>&nbsp;{date}
+            <AiOutlineCalendar></AiOutlineCalendar>&nbsp;{date.slice(-2)}/
+            {date.slice(5, 7)}/{date.slice(0, 4)}
           </span>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <span onClick={() => edit(id, description)}>

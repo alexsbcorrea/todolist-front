@@ -15,6 +15,7 @@ export const Container = styled.main`
   width: 100vw;
   height: calc(100% - 80px);
   background-color: RGBA(0, 0, 0, 0.5);
+  z-index: 1000;
 `;
 
 export const Message = styled.main`

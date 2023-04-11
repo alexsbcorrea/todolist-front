@@ -20,4 +20,9 @@ export const Search = styled.form`
     border-radius: 5px;
     border: none;
   }
+
+  .searchIcon {
+    position: absolute;
+    right: 8%;
+  }
 `;
