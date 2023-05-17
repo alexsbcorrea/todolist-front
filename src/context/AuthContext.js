@@ -8,16 +8,31 @@ export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const { setFlashMessage } = useFlashMessage();
-  const [userTD, setUserTD] = useState(
-    JSON.parse(localStorage.getItem("userTD")) || {}
+  const [userTD, setUserTD] = useState(localStorage.getItem("userTD") || "");
+  const [emailTD, setEmailTD] = useState(localStorage.getItem("emailTD") || "");
+  const [imageTD, setImageTD] = useState(localStorage.getItem("imageTD") || "");
+  const [imageIdTD, setImageIdTD] = useState(
+    localStorage.getItem("imageIdTD") || ""
   );
+  const [tokenTD, setTokenTD] = useState(localStorage.getItem("tokenTD") || "");
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    //localStorage.removeItem("userTD");
-    localStorage.setItem("userTD", JSON.stringify(userTD));
-    localStorage.setItem("image", JSON.stringify(userTD.image));
+    localStorage.setItem("userTD", userTD);
   }, [userTD]);
+  useEffect(() => {
+    localStorage.setItem("emailTD", emailTD);
+  }, [emailTD]);
+  useEffect(() => {
+    localStorage.setItem("imageTD", imageTD);
+  }, [imageTD]);
+  useEffect(() => {
+    localStorage.setItem("imageIdTD", imageIdTD);
+  }, [imageIdTD]);
+  useEffect(() => {
+    localStorage.setItem("tokenTD", tokenTD);
+  }, [tokenTD]);
 
   function Register(user) {
     if (!user.firstname) {
@@ -58,12 +73,11 @@ function AuthProvider({ children }) {
       .then((response) => response.data)
       .then((data) => {
         console.log(data);
-        setUserTD({
-          user: data.user,
-          email: data.email,
-          image: data.image,
-          token: data.token,
-        });
+        setUserTD(data.user);
+        setEmailTD(data.email);
+        setImageTD(data.image);
+        setImageIdTD(data.imageId);
+        setTokenTD(data.token);
         setFlashMessage("success", `Bem vindo(a) ${data.user}`, 5000, "popup");
         setTimeout(() => {
           navigate("/");
@@ -89,12 +103,11 @@ function AuthProvider({ children }) {
       .then((response) => response.data)
       .then((data) => {
         console.log(data);
-        setUserTD({
-          user: data.user,
-          email: data.email,
-          image: data.image,
-          token: data.token,
-        });
+        setUserTD(data.user);
+        setEmailTD(data.email);
+        setImageTD(data.image);
+        setImageIdTD(data.imageId);
+        setTokenTD(data.token);
         if (data.message == "Usuário ou senha incorretos.") {
           setFlashMessage("error", `${data.message}`, 5000, "popup");
         } else {
@@ -108,15 +121,33 @@ function AuthProvider({ children }) {
   }
 
   function Logout() {
-    setUserTD({});
+    setUserTD("");
+    setEmailTD("");
+    setImageTD("");
+    setImageIdTD("");
+    setTokenTD("");
     localStorage.removeItem("userTD");
-    localStorage.removeItem("image");
-    localStorage.removeItem("image2");
+    localStorage.removeItem("emailTD");
+    localStorage.removeItem("imageTD");
+    localStorage.removeItem("imageIdTD");
+    localStorage.removeItem("tokenTD");
+
     navigate("/login");
   }
 
   return (
-    <AuthContext.Provider value={{ Register, Login, Logout, userTD }}>
+    <AuthContext.Provider
+      value={{
+        Register,
+        Login,
+        Logout,
+        userTD,
+        emailTD,
+        imageTD,
+        imageIdTD,
+        tokenTD,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

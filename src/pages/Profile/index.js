@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, FotoPerfil } from "./styles";
 
 import useFlashMessage from "../../useFlashMessage/useFlashMessage";
@@ -8,8 +8,10 @@ import { AiOutlineEye } from "react-icons/ai";
 
 import api from "../../api/api";
 import PerfilDefatult from "../../assets/perfil.jpg";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Profile() {
+  const { imageIdTD } = useContext(AuthContext);
   const { setFlashMessage } = useFlashMessage();
   const [user, setUser] = useState({});
   const [preview, setPreview] = useState();
@@ -71,8 +73,10 @@ export default function Profile() {
     api
       .patch(`/users/changephoto/${user.id}`, data)
       .then((response) => {
-        localStorage.removeItem("image2");
-        localStorage.setItem("image2", JSON.stringify(response.data.image));
+        localStorage.removeItem("imageTD");
+        localStorage.removeItem("imageIdTD");
+        localStorage.setItem("imageTD", response.data.image);
+        localStorage.setItem("imageIdTD", response.data.imageId);
 
         setFlashMessage(
           "success",
@@ -134,14 +138,16 @@ export default function Profile() {
       });
   }
 
-  const Perfil = `${process.env.REACT_APP_API}/img/users/${user.image}` || "";
+  let Perfil = imageIdTD
+    ? `https://drive.google.com/uc?export=view&id=${imageIdTD}`
+    : PerfilDefatult;
 
   return (
     <Container>
       <form action="">
         <FotoPerfil>
           <img
-            src={preview ? URL.createObjectURL(preview) : PerfilDefatult}
+            src={preview ? URL.createObjectURL(preview) : Perfil}
             alt="Foto de Perfil"
           />
         </FotoPerfil>

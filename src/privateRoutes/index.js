@@ -5,5 +5,5 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function PrivateRoutes({ children }) {
   const { userTD } = useContext(AuthContext);
-  return userTD.token ? children : <Navigate to="/login" />;
+  return userTD ? children : <Navigate to="/login" />;
 }

@@ -13,7 +13,7 @@ import Search from "../Search";
 import PerfilDefatult from "../../assets/perfil.jpg";
 
 export default function NavbarH() {
-  const { Logout, userTD } = useContext(AuthContext);
+  const { Logout, userTD, tokenTD, imageIdTD } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
   const [profile, setProfile] = useState(
@@ -29,14 +29,16 @@ export default function NavbarH() {
     Logout();
   }
 
-  let Perfil = PerfilDefatult;
+  let Perfil = imageIdTD
+    ? `https://drive.google.com/uc?export=view&id=${imageIdTD}`
+    : PerfilDefatult;
 
   if (Perfil === undefined || Perfil === null) {
     console.log(Perfil);
     Perfil = PerfilDefatult;
   }
 
-  if (userTD.token) {
+  if (tokenTD) {
     return (
       <C.ContainerMenu>
         <C.Hamburguer open={open} onClick={ModalMenu}>

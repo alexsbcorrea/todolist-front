@@ -13,7 +13,6 @@ export default function NewTask() {
   const { setFlashMessage } = useFlashMessage();
   const [task, setTask] = useState({});
   const [message, setMessage] = useState();
-  const { token } = JSON.parse(localStorage.getItem("userTD")) || "";
 
   function handleChange(e) {
     setTask((prevstate) => {
