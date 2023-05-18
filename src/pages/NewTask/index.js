@@ -3,6 +3,7 @@ import { Container } from "./styles";
 import { useNavigate } from "react-router-dom";
 
 import useFlashMessage from "../../useFlashMessage/useFlashMessage";
+import Loading from "../../components/Loading";
 
 import api from "../../api/api";
 
@@ -13,6 +14,7 @@ export default function NewTask() {
   const { setFlashMessage } = useFlashMessage();
   const [task, setTask] = useState({});
   const [message, setMessage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleChange(e) {
     setTask((prevstate) => {
@@ -33,22 +35,27 @@ export default function NewTask() {
   }
 
   function CreateNewTask(e) {
+    setIsLoading(true);
     e.preventDefault();
 
     if (!task.description) {
       setFlashMessage("error", `A Descrição é obrigatória.`, 3000, "popup");
+      setIsLoading(false);
       return;
     }
     if (!task.date) {
       setFlashMessage("error", `A Data é obrigatória.`, 3000, "popup");
+      setIsLoading(false);
       return;
     }
     if (!task.time) {
       setFlashMessage("error", `O Horário é obrigatório.`, 3000, "popup");
+      setIsLoading(false);
       return;
     }
     if (!task.categorie) {
       setFlashMessage("error", `A Categoria é obrigatória.`, 3000, "popup");
+      setIsLoading(false);
       return;
     }
 
@@ -56,6 +63,7 @@ export default function NewTask() {
       .post("/tasks/create", task)
       .then((response) => response.data)
       .then((data) => {
+        setIsLoading(false);
         setMessage(data.message);
         setFlashMessage("success", data.message, 3000, "popup");
         setTimeout(() => {
@@ -64,6 +72,7 @@ export default function NewTask() {
       })
       .catch((err) => {
         console.log(err.message);
+        setIsLoading(false);
       });
   }
 
@@ -125,6 +134,12 @@ export default function NewTask() {
             <option value="Outros">Outros</option>
           </select>
         </div>
+
+        <Loading
+          loading={isLoading}
+          colorBase="#fff"
+          colorLine="#1E73BE"
+        ></Loading>
 
         <button type="submit" onClick={CreateNewTask}>
           CRIAR TAREFA

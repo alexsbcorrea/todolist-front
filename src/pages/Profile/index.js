@@ -10,6 +10,8 @@ import api from "../../api/api";
 import PerfilDefatult from "../../assets/perfil.jpg";
 import { AuthContext } from "../../context/AuthContext";
 
+import Loading from "../../components/Loading";
+
 export default function Profile() {
   const { imageIdTD } = useContext(AuthContext);
   const { setFlashMessage } = useFlashMessage();
@@ -19,6 +21,9 @@ export default function Profile() {
   const [update, setUpdate] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState("password");
   const [visibleConfPassword, setVisibleConfPassword] = useState("password");
+  const [visibleCurrentPassword, setVisibleCurrentPassword] =
+    useState("password");
+  const [isLoading, setIsLoading] = useState(false);
 
   function TogglePasswordVisible() {
     if (visiblePassword == "password") {
@@ -36,18 +41,27 @@ export default function Profile() {
     }
   }
 
-  useEffect(() => {
+  function ToggleCurrentPassword() {
+    if (visibleCurrentPassword == "password") {
+      setVisibleCurrentPassword("text");
+    } else {
+      setVisibleCurrentPassword("password");
+    }
+  }
+  function GetProfile() {
+    setIsLoading(true);
     api.get("/users/profile").then((response) => {
       setUser(response.data);
       console.log(response.data);
+      setIsLoading(false);
     });
+  }
+  useEffect(() => {
+    GetProfile();
   }, []);
 
   useEffect(() => {
-    api.get("/users/profile").then((response) => {
-      setUser(response.data);
-      console.log(response.data);
-    });
+    GetProfile();
   }, [update]);
 
   function handleChange(e) {
@@ -151,6 +165,13 @@ export default function Profile() {
             alt="Foto de Perfil"
           />
         </FotoPerfil>
+
+        <Loading
+          loading={isLoading}
+          colorBase="#fff"
+          colorLine="#1E73BE"
+        ></Loading>
+
         <div>
           <form>
             <input
@@ -202,13 +223,36 @@ export default function Profile() {
           />
         </div>
         <div>
+          <label htmlFor="">Senha Atual:</label>
+          <input
+            type={visibleCurrentPassword}
+            name="currentPassword"
+            id="currentPassword"
+            onChange={handleChange}
+            value={user.currentPassword || ""}
+          />
+          {visibleCurrentPassword == "password" ? (
+            <AiOutlineEye
+              size={25}
+              className="password"
+              onClick={ToggleCurrentPassword}
+            ></AiOutlineEye>
+          ) : (
+            <AiOutlineEyeInvisible
+              onClick={ToggleCurrentPassword}
+              size={25}
+              className="password"
+            ></AiOutlineEyeInvisible>
+          )}
+        </div>
+        <div>
           <label htmlFor="">Senha:</label>
           <input
             type={visiblePassword}
-            name="password"
-            id="password"
+            name="newPassword"
+            id="newPassword"
             onChange={handleChange}
-            value={user.password || ""}
+            value={user.newPassword || ""}
           />
           {visiblePassword == "password" ? (
             <AiOutlineEye
@@ -247,6 +291,8 @@ export default function Profile() {
             ></AiOutlineEyeInvisible>
           )}
         </div>
+
+        <Loading></Loading>
 
         <button type="submit" onClick={UpdateProfile}>
           SALVAR ALTERAÇÕES

@@ -5,7 +5,7 @@ import { device } from "./devices";
 export const CardTask = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
-  max-width: 700px;
+  max-width: 600px;
   width: 90%;
   min-height: 60px;
   height: auto;
@@ -47,12 +47,23 @@ export const CardTask = styled.div`
       font-size: 1rem;
     }
   }
+  @media ${device.mobileS} {
+    h2 {
+      font-size: 0.6rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
+    span {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 export const CardTaskClosed = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
-  max-width: 700px;
+  max-width: 600px;
   width: 90%;
   min-height: 60px;
   height: auto;
@@ -91,6 +102,11 @@ export const CardTaskClosed = styled.div`
       font-size: 1rem;
     }
   }
+  @media ${device.mobileS} {
+    h2 {
+      font-size: 0.6rem;
+    }
+  }
 `;
 
 export const Details = styled.div`
@@ -117,5 +133,5 @@ export const Commands = styled.div`
     .remove {
       display: none;
     }
-  } ;
+  }
 `;

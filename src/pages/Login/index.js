@@ -8,10 +8,13 @@ import { AuthContext } from "../../context/AuthContext";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 
+import Loading from "../../components/Loading";
+
 export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
   const { Login } = useContext(AuthContext);
   const [visiblePassword, setVisiblePassword] = useState("password");
+  const [isLoading, setIsLoading] = useState(false);
 
   function TogglePasswordVisible() {
     if (visiblePassword == "password") {
@@ -31,6 +34,7 @@ export default function Login() {
   }
 
   function LoginUser(e) {
+    setIsLoading(true);
     e.preventDefault();
     Login(user);
   }
@@ -78,6 +82,7 @@ export default function Login() {
         <span>
           Esqueceu a Senha? <a href="">&nbsp;Clique Aqui.</a>
         </span>
+        <Loading loading={isLoading}></Loading>
         <button type="submit" onClick={LoginUser}>
           ENTRAR
         </button>

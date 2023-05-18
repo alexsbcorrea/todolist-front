@@ -4,6 +4,7 @@ import { Container } from "./styles";
 
 import Filters from "../../components/Filters";
 import Search from "../../components/Search";
+import Loading from "../../components/Loading";
 
 import api from "../../api/api";
 
@@ -15,6 +16,7 @@ export default function TasksClosed() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   function SetClosed(id) {
     api
@@ -57,29 +59,38 @@ export default function TasksClosed() {
     navigate(`/tasks/edit/${id}`);
   }
 
-  useEffect(() => {
+  function GetTasks() {
+    setIsLoading(true);
     api
       .get("/tasks/closeds")
       .then((response) => response.data)
-      .then((data) => setTasks(data))
+      .then((data) => {
+        setTasks(data);
+        setIsLoading(false);
+      })
       .catch((erro) => {
         console.log("Falha ao buscar dados.");
+        setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    GetTasks();
   }, []);
 
   useEffect(() => {
-    api
-      .get("/tasks/closeds")
-      .then((response) => response.data)
-      .then((data) => setTasks(data))
-      .catch((erro) => {
-        console.log("Falha ao buscar dados.");
-      });
+    GetTasks();
   }, [updateTask]);
 
   return (
     <Container>
       <h1>Tarefas Concluídas</h1>
+
+      <Loading
+        loading={isLoading}
+        colorBase="#232C3D"
+        colorLine="#FFFFFF"
+      ></Loading>
 
       {tasks.tasks?.length > 0 ? (
         <div>

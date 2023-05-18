@@ -7,6 +7,7 @@ import { Container, CardTask, Details, Commands } from "./styles";
 
 import Filters from "../../components/Filters";
 import Search from "../../components/Search";
+import Loading from "../../components/Loading";
 
 import api from "../../api/api";
 
@@ -19,6 +20,7 @@ export default function AllTasks() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   function SetClosed(id, description) {
     api
@@ -79,29 +81,38 @@ export default function AllTasks() {
     navigate(`/tasks/edit/${id}`);
   }
 
-  useEffect(() => {
+  function GetTasks() {
+    setIsLoading(true);
     api
       .get("/tasks/all")
       .then((response) => response.data)
-      .then((data) => setTasks(data))
+      .then((data) => {
+        setTasks(data);
+        setIsLoading(false);
+      })
       .catch((erro) => {
         console.log("Falha ao buscar dados.");
+        setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    GetTasks();
   }, []);
 
   useEffect(() => {
-    api
-      .get("/tasks/all")
-      .then((response) => response.data)
-      .then((data) => setTasks(data))
-      .catch((erro) => {
-        console.log("Falha ao buscar dados.");
-      });
+    GetTasks();
   }, [updateTask]);
 
   return (
     <Container>
       <h1>Todas as Tarefas</h1>
+
+      <Loading
+        loading={isLoading}
+        colorBase="#232C3D"
+        colorLine="#FFFFFF"
+      ></Loading>
 
       {tasks.tasks?.length > 0 ? (
         <div>
