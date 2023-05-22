@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container } from "./styles";
 
+import Task from "../../components/CardTask";
 import Filters from "../../components/Filters";
 import Search from "../../components/Search";
 import Loading from "../../components/Loading";
 
 import api from "../../api/api";
-
-import Task from "../../components/CardTask";
 
 export default function TasksClosed() {
   const [updateTask, setUpdateTask] = useState(false);

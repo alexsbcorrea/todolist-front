@@ -5,11 +5,10 @@ import api from "../../api/api";
 
 import { Container } from "./styles";
 
+import Task from "../../components/CardTask";
 import Filters from "../../components/Filters";
 import Search from "../../components/Search";
 import Loading from "../../components/Loading";
-
-import Task from "../../components/CardTask";
 
 export default function TasksPending() {
   const [updateTask, setUpdateTask] = useState(false);

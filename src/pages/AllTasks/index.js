@@ -5,13 +5,12 @@ import useFlashMessage from "../../useFlashMessage/useFlashMessage";
 
 import { Container, CardTask, Details, Commands } from "./styles";
 
+import Task from "../../components/CardTask";
 import Filters from "../../components/Filters";
 import Search from "../../components/Search";
 import Loading from "../../components/Loading";
 
 import api from "../../api/api";
-
-import Task from "../../components/CardTask";
 
 export default function AllTasks() {
   const { setFlashMessage } = useFlashMessage();
@@ -92,6 +91,7 @@ export default function AllTasks() {
       })
       .catch((erro) => {
         console.log("Falha ao buscar dados.");
+        console.log(erro.toJSON());
         setIsLoading(false);
       });
   }

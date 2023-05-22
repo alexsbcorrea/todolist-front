@@ -79,9 +79,7 @@ function AuthProvider({ children }) {
         setImageIdTD(data.imageId);
         setTokenTD(data.token);
         setFlashMessage("success", `Bem vindo(a) ${data.user}`, 5000, "popup");
-        setTimeout(() => {
-          navigate("/");
-        }, 5000);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err.message);
