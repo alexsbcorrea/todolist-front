@@ -1,11 +1,11 @@
 import * as C from "./styles";
 
-export default function ModalUser({ user, modal, logout }) {
+export default function ModalUser({ user, email, modal, logout }) {
   return (
     <C.Container modal={modal}>
       <C.InfoUser>
-        <h2>Bem vindo {user.user}</h2>
-        <p>{user.email}</p>
+        <h2>Bem vindo {user}</h2>
+        <p>{email}</p>
       </C.InfoUser>
       <C.Comands>
         <a href="/profile">Editar Perfil</a>

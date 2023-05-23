@@ -246,7 +246,7 @@ export default function Profile() {
           )}
         </div>
         <div>
-          <label htmlFor="">Senha:</label>
+          <label htmlFor="">Nova Senha:</label>
           <input
             type={visiblePassword}
             name="newPassword"
@@ -269,7 +269,7 @@ export default function Profile() {
           )}
         </div>
         <div>
-          <label htmlFor="">Confirmar Senha:</label>
+          <label htmlFor="">Confirmar Nova Senha:</label>
           <input
             type={visibleConfPassword}
             name="confirmPassword"

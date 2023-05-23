@@ -79,7 +79,7 @@ function AuthProvider({ children }) {
         setImageIdTD(data.imageId);
         setTokenTD(data.token);
         setFlashMessage("success", `Bem vindo(a) ${data.user}`, 5000, "popup");
-        navigate("/");
+        navigate("/tasks/new");
       })
       .catch((err) => {
         console.log(err.message);
@@ -109,7 +109,7 @@ function AuthProvider({ children }) {
         if (data.message == "Usuário ou senha incorretos.") {
           setFlashMessage("error", `${data.message}`, 5000, "popup");
         } else {
-          navigate("/tasks");
+          navigate("/tasks/new");
         }
       })
       .catch((err) => {

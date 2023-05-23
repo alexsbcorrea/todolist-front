@@ -13,7 +13,8 @@ import Search from "../Search";
 import PerfilDefatult from "../../assets/perfil.jpg";
 
 export default function NavbarH() {
-  const { Logout, userTD, tokenTD, imageIdTD } = useContext(AuthContext);
+  const { Logout, userTD, emailTD, tokenTD, imageIdTD } =
+    useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [modal, setModal] = useState(false);
   const [profile, setProfile] = useState(
@@ -80,6 +81,7 @@ export default function NavbarH() {
             modal={modal}
             logout={LogoutUser}
             user={userTD}
+            email={emailTD}
           ></ModalUser>
         </C.ItemsMenu>
       </C.ContainerMenu>
