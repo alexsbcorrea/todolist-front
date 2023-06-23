@@ -86,12 +86,6 @@ export default function TasksPending() {
     <Container>
       <h1>Tarefas Pendentes</h1>
 
-      <Loading
-        loading={isLoading}
-        colorBase="#232C3D"
-        colorLine="#FFFFFF"
-      ></Loading>
-
       {tasks.tasks?.length > 0 ? (
         <div>
           <Search

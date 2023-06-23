@@ -18,6 +18,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassoword";
 import NewTask from "./pages/NewTask";
 import AllTasks from "./pages/AllTasks";
 import TasksClosed from "./pages/TasksClosed";
@@ -54,6 +55,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <Profile />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="/changepassword"
+              element={
+                <PrivateRoutes>
+                  <ChangePassword />
                 </PrivateRoutes>
               }
             />

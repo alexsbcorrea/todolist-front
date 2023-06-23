@@ -17,11 +17,4 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.log(error.response.status);
-  }
-);
-
 export default api;

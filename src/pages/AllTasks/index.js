@@ -108,12 +108,6 @@ export default function AllTasks() {
     <Container>
       <h1>Todas as Tarefas</h1>
 
-      <Loading
-        loading={isLoading}
-        colorBase="#232C3D"
-        colorLine="#FFFFFF"
-      ></Loading>
-
       {tasks.tasks?.length > 0 ? (
         <div>
           <Search

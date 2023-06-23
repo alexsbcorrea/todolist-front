@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Container, FotoPerfil } from "./styles";
-
+import { useNavigate } from "react-router-dom";
 import useFlashMessage from "../../useFlashMessage/useFlashMessage";
 
 import { AiOutlineEyeInvisible } from "react-icons/ai";
@@ -13,6 +13,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Loading from "../../components/Loading";
 
 export default function Profile() {
+  const navigation = useNavigate();
   const { imageIdTD } = useContext(AuthContext);
   const { setFlashMessage } = useFlashMessage();
   const [user, setUser] = useState({});
@@ -24,6 +25,7 @@ export default function Profile() {
   const [visibleCurrentPassword, setVisibleCurrentPassword] =
     useState("password");
   const [isLoading, setIsLoading] = useState(false);
+  const [updatePassword, setUpdatePassword] = useState(false);
 
   function TogglePasswordVisible() {
     if (visiblePassword == "password") {
@@ -106,7 +108,7 @@ export default function Profile() {
         console.log("Falha");
         setFlashMessage(
           "error",
-          "Servidor Gratuito: Funcionalidade Indisponível",
+          "Erro no Servidor, tente novamente mais tarde.",
           5000,
           "popup"
         );
@@ -125,11 +127,6 @@ export default function Profile() {
       return;
     }
 
-    if (user.password != user.confirmPassword) {
-      setFlashMessage("error", `As senhas não conferem.`, 5000, "popup");
-      return;
-    }
-
     api
       .patch(`/users/edit/${user.id}`, user)
       .then((response) => {
@@ -140,6 +137,7 @@ export default function Profile() {
           5000,
           "popup"
         );
+        setIsLoading(false);
       })
       .catch((erro) => {
         console.log(erro);
@@ -149,6 +147,7 @@ export default function Profile() {
           5000,
           "popup"
         );
+        setIsLoading(false);
       });
   }
 
@@ -190,16 +189,19 @@ export default function Profile() {
           </form>
         </div>
         <section>
-          <div>
-            <label htmlFor="firstname">Primeiro Nome:</label>
-            <input
-              type="text"
-              name="firstname"
-              id="firstname"
-              onChange={handleChange}
-              value={user.firstname || ""}
-            />
-          </div>
+          {!updatePassword && (
+            <div>
+              <label htmlFor="firstname">Primeiro Nome:</label>
+              <input
+                type="text"
+                name="firstname"
+                id="firstname"
+                onChange={handleChange}
+                value={user.firstname || ""}
+              />
+            </div>
+          )}
+
           <div>
             <label htmlFor="">Último Nome:</label>
             <input
@@ -222,80 +224,91 @@ export default function Profile() {
             disabled
           />
         </div>
-        <div>
-          <label htmlFor="">Senha Atual:</label>
-          <input
-            type={visibleCurrentPassword}
-            name="currentPassword"
-            id="currentPassword"
-            onChange={handleChange}
-            value={user.currentPassword || ""}
-          />
-          {visibleCurrentPassword == "password" ? (
-            <AiOutlineEye
-              size={25}
-              className="password"
-              onClick={ToggleCurrentPassword}
-            ></AiOutlineEye>
-          ) : (
-            <AiOutlineEyeInvisible
-              onClick={ToggleCurrentPassword}
-              size={25}
-              className="password"
-            ></AiOutlineEyeInvisible>
-          )}
-        </div>
-        <div>
-          <label htmlFor="">Nova Senha:</label>
-          <input
-            type={visiblePassword}
-            name="newPassword"
-            id="newPassword"
-            onChange={handleChange}
-            value={user.newPassword || ""}
-          />
-          {visiblePassword == "password" ? (
-            <AiOutlineEye
-              size={25}
-              className="password"
-              onClick={TogglePasswordVisible}
-            ></AiOutlineEye>
-          ) : (
-            <AiOutlineEyeInvisible
-              onClick={TogglePasswordVisible}
-              size={25}
-              className="password"
-            ></AiOutlineEyeInvisible>
-          )}
-        </div>
-        <div>
-          <label htmlFor="">Confirmar Nova Senha:</label>
-          <input
-            type={visibleConfPassword}
-            name="confirmPassword"
-            id="confirmPassword"
-            onChange={handleChange}
-            value={user.confirmPassword || ""}
-          />
-          {visibleConfPassword == "password" ? (
-            <AiOutlineEye
-              size={25}
-              className="password"
-              onClick={ToggleConfPasswordVisible}
-            ></AiOutlineEye>
-          ) : (
-            <AiOutlineEyeInvisible
-              onClick={ToggleConfPasswordVisible}
-              size={25}
-              className="password"
-            ></AiOutlineEyeInvisible>
-          )}
-        </div>
+        {updatePassword && (
+          <div>
+            <label htmlFor="">Senha Atual:</label>
+            <input
+              type={visibleCurrentPassword}
+              name="currentPassword"
+              id="currentPassword"
+              onChange={handleChange}
+              value={user.currentPassword || ""}
+            />
+            {visibleCurrentPassword == "password" ? (
+              <AiOutlineEye
+                size={25}
+                className="password"
+                onClick={ToggleCurrentPassword}
+              ></AiOutlineEye>
+            ) : (
+              <AiOutlineEyeInvisible
+                onClick={ToggleCurrentPassword}
+                size={25}
+                className="password"
+              ></AiOutlineEyeInvisible>
+            )}
+          </div>
+        )}
+
+        {updatePassword && (
+          <div>
+            <label htmlFor="">Nova Senha:</label>
+            <input
+              type={visiblePassword}
+              name="newPassword"
+              id="newPassword"
+              onChange={handleChange}
+              value={user.newPassword || ""}
+            />
+            {visiblePassword == "password" ? (
+              <AiOutlineEye
+                size={25}
+                className="password"
+                onClick={TogglePasswordVisible}
+              ></AiOutlineEye>
+            ) : (
+              <AiOutlineEyeInvisible
+                onClick={TogglePasswordVisible}
+                size={25}
+                className="password"
+              ></AiOutlineEyeInvisible>
+            )}
+          </div>
+        )}
+
+        {updatePassword && (
+          <div>
+            <label htmlFor="">Confirmar Nova Senha:</label>
+            <input
+              type={visibleConfPassword}
+              name="confirmPassword"
+              id="confirmPassword"
+              onChange={handleChange}
+              value={user.confirmPassword || ""}
+            />
+            {visibleConfPassword == "password" ? (
+              <AiOutlineEye
+                size={25}
+                className="password"
+                onClick={ToggleConfPasswordVisible}
+              ></AiOutlineEye>
+            ) : (
+              <AiOutlineEyeInvisible
+                onClick={ToggleConfPasswordVisible}
+                size={25}
+                className="password"
+              ></AiOutlineEyeInvisible>
+            )}
+          </div>
+        )}
 
         <Loading></Loading>
 
         <button type="submit" onClick={UpdateProfile}>
           SALVAR ALTERAÇÕES
+        </button>
+        <button type="submit" onClick={() => navigation("/changepassword")}>
+          ALTERAR SENHA
         </button>
       </form>
     </Container>

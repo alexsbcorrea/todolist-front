@@ -85,12 +85,6 @@ export default function TasksClosed() {
     <Container>
       <h1>Tarefas Concluídas</h1>
 
-      <Loading
-        loading={isLoading}
-        colorBase="#232C3D"
-        colorLine="#FFFFFF"
-      ></Loading>
-
       {tasks.tasks?.length > 0 ? (
         <div>
           <Search
