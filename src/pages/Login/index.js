@@ -80,7 +80,7 @@ export default function Login() {
           )}
         </div>
         <span>
-          Esqueceu a Senha? <a href="">&nbsp;Clique Aqui.</a>
+          Esqueceu a Senha? <a href="/recoverypassword">&nbsp;Clique Aqui.</a>
         </span>
         <Loading loading={isLoading}></Loading>
         <button type="submit" onClick={LoginUser}>

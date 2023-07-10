@@ -18,7 +18,9 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import ChangePassword from "./pages/ChangePassoword";
+import ChangePassword from "./pages/ChangePassword";
+import RecoveryPassword from "./pages/RecoveryPassword";
+import SetNewPassword from "./pages/SetNewPassword";
 import NewTask from "./pages/NewTask";
 import AllTasks from "./pages/AllTasks";
 import TasksClosed from "./pages/TasksClosed";
@@ -50,6 +52,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/recoverypassword" element={<RecoveryPassword />} />
+            <Route path="/createnewpassword" element={<SetNewPassword />} />
             <Route
               path="/profile"
               element={
