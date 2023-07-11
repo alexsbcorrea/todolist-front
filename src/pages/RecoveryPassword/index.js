@@ -25,12 +25,25 @@ export default function RecoveryPassword() {
 
   async function GetCodePassword(e) {
     e.preventDefault();
-    const response = await api.patch("/users/recoverpassword", user);
-
-    if (response.status == 200) {
-      navigate("/createnewpassword");
+    if (!user.email) {
+      setFlashMessage(
+        "error",
+        "Insira o e-mail para continuar.",
+        3000,
+        "popup"
+      );
+      return;
     }
-    console.log(response.status);
+
+    try {
+      const response = await api.patch("/users/recoverpassword", user);
+      setFlashMessage("success", "Código enviado por E-mail.", 2000, "popup");
+      setTimeout(() => {
+        navigate("/createnewpassword");
+      }, 2000);
+    } catch (error) {
+      setFlashMessage("error", "Usuário não encontrado.", 3000, "popup");
+    }
   }
 
   return (
@@ -55,6 +68,9 @@ export default function RecoveryPassword() {
         <Loading loading={isLoading}></Loading>
         <button type="submit" onClick={GetCodePassword}>
           RECUPERAR SENHA
+        </button>
+        <button type="submit" onClick={() => navigate("/createnewpassword")}>
+          JÁ TENHO O CÓDIGO
         </button>
       </form>
     </Container>

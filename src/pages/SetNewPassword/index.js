@@ -15,7 +15,11 @@ import Loading from "../../components/Loading";
 export default function SetNewPassword() {
   const navigation = useNavigate();
   const { setFlashMessage } = useFlashMessage();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    code: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
   const [visiblePassword, setVisiblePassword] = useState("password");
   const [visibleConfPassword, setVisibleConfPassword] = useState("password");
 
@@ -37,8 +41,47 @@ export default function SetNewPassword() {
 
   async function ChangePassword(e) {
     e.preventDefault();
-    const response = await api.patch("/users/setnewpassword", user);
-    console.log(response.status);
+    if (!user.code) {
+      setFlashMessage("error", "O Código é obrigatório.", 2000, "popup");
+      return;
+    }
+    if (!user.newPassword) {
+      setFlashMessage("error", "A Nova Senha é obrigatória.", 2000, "popup");
+      return;
+    }
+    if (!user.confirmPassword) {
+      setFlashMessage(
+        "error",
+        "A Confirmação de Senha é obrigatória.",
+        2000,
+        "popup"
+      );
+      return;
+    }
+    if (user.newPassword != user.confirmPassword) {
+      setFlashMessage(
+        "error",
+        "A Senha e a Confirmação não correspondem.",
+        2000,
+        "popup"
+      );
+      return;
+    }
+
+    try {
+      const response = await api.patch("/users/setnewpassword", user);
+      setFlashMessage("success", "Senha alterada com sucesso.", 2000, "popup");
+      setTimeout(() => {
+        navigation("/login");
+      }, 2000);
+    } catch (error) {
+      setFlashMessage(
+        "error",
+        "Erro no Servidor, tente novamente mais tarde.",
+        2000,
+        "popup"
+      );
+    }
   }
 
   function handleChange(e) {
