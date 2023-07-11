@@ -27,6 +27,7 @@ export default function NavbarH() {
   }
 
   function LogoutUser() {
+    setOpen(false);
     Logout();
   }
 
