@@ -72,6 +72,12 @@ export default function NewTask() {
       })
       .catch((err) => {
         console.log(err.message);
+        setFlashMessage(
+          "error",
+          "Erro no Servidor, tente novamente mais tarde.",
+          3000,
+          "popup"
+        );
         setIsLoading(false);
       });
   }
